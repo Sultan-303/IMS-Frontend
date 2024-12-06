@@ -28,43 +28,44 @@ const useItems = () => {
     fetchItems();
   }, []);
 
-  const addItem = async (newItem: Item) => {
+  const addItem = async (item: Item) => {
     try {
+      const payload = {
+        ...item,
+        itemCategories: [], // Ensure itemCategories is included as an empty array
+      };
+      console.log('Adding item:', payload); // Log the payload
       const response = await fetch('https://localhost:7237/api/items', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newItem),
+        body: JSON.stringify(payload),
       });
-
-      if (response.ok) {
-        const addedItem = await response.json();
-        setAllItems((prevItems) => [...prevItems, addedItem]);
-      } else if (response.status === 409) {
-        // Handle duplicate item name error
-        const errorMessage = await response.text();
-        setError(errorMessage);
-        setShowErrorModal(true);
-        console.error('Error adding item:', errorMessage);
-      } else {
+      if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+      const newItem = await response.json();
+      setAllItems((prevItems) => [...prevItems, newItem]);
     } catch (error) {
       setError('Error adding item');
-      setShowErrorModal(true);
       console.error('Error adding item:', error);
     }
   };
 
   const updateItem = async (updatedItem: Item) => {
     try {
+      const payload = {
+        ...updatedItem,
+        itemCategories: updatedItem.itemCategories || [], // Ensure itemCategories is included
+      };
+      console.log('Updating item:', payload); // Log the payload
       const response = await fetch(`https://localhost:7237/api/items/${updatedItem.itemID}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedItem),
+        body: JSON.stringify(payload),
       });
 
       if (response.ok) {
@@ -94,9 +95,13 @@ const useItems = () => {
       const response = await fetch(`https://localhost:7237/api/items/${itemId}`, {
         method: 'DELETE',
       });
-
+  
       if (response.ok) {
         setAllItems((prevItems) => prevItems.filter((item) => item.itemID !== itemId));
+      } else if (response.status === 409) {
+        const data = await response.json();
+        // Do not set the error state here, just return the conflict response data
+        return data;
       } else {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

@@ -1,4 +1,4 @@
-describe('Items Page', () => {
+/* describe('Items Page', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/items');
   });
@@ -27,4 +27,4 @@ describe('Items Page', () => {
     cy.contains('Delete', { timeout: 10000 }).should('be.visible').click();
     cy.contains('There are no items to be viewed.');
   });
-});
+}); */

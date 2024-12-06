@@ -5,12 +5,15 @@ import { Item } from '../types';
 import AddItemModal from '../components/AddItemModal';
 import EditItemModal from '../components/EditItemModal';
 import ErrorModal from '../components/ErrorModal';
+import ConfirmationModal from '../components/ConfirmationModal'; // Import the new ConfirmationModal component
 
 const ItemsPage: React.FC = () => {
   const { allItems, addItem, updateItem, deleteItem, fetchItems, loading, error, showErrorModal, setShowErrorModal } = useItems();
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false); // State for the confirmation modal
   const [currentItem, setCurrentItem] = useState<Item | null>(null);
+  const [forceDeleteItemId, setForceDeleteItemId] = useState<number | null>(null); // State for the item to force delete
 
   useEffect(() => {
     fetchItems();
@@ -26,8 +29,23 @@ const ItemsPage: React.FC = () => {
     setShowEditModal(false);
   };
 
-  const handleDeleteItem = (itemId: number) => {
-    deleteItem(itemId);
+  const handleDeleteItem = async (itemId: number) => {
+    const conflictResponse = await deleteItem(itemId);
+    if (conflictResponse && conflictResponse.canForceDelete) {
+      setForceDeleteItemId(itemId);
+      setShowConfirmationModal(true);
+    }
+  };
+
+  const handleForceDeleteItem = async () => {
+    if (forceDeleteItemId !== null) {
+      await fetch(`https://localhost:7237/api/items/${forceDeleteItemId}/force`, {
+        method: 'DELETE',
+      });
+      fetchItems();
+      setShowConfirmationModal(false);
+      setForceDeleteItemId(null);
+    }
   };
 
   return (
@@ -64,6 +82,13 @@ const ItemsPage: React.FC = () => {
           item={currentItem}
           onClose={() => setShowEditModal(false)}
           onSave={handleEditItem}
+        />
+      )}
+      {showConfirmationModal && (
+        <ConfirmationModal
+          message="Could not delete item because stock of this item exists. Do you want to proceed deleting this item? Note: Deleting this item will remove any existing stock with this item."
+          onCancel={() => setShowConfirmationModal(false)}
+          onConfirm={handleForceDeleteItem}
         />
       )}
     </div>
