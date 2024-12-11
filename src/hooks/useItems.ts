@@ -10,7 +10,7 @@ const useItems = () => {
   const fetchItems = async () => {
     setLoading(true);
     try {
-      const response = await fetch('https://localhost:7237/api/items');
+      const response = await fetch('http://localhost:5079/api/Items'); // Use the correct URL
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -35,7 +35,7 @@ const useItems = () => {
         itemCategories: [], // Ensure itemCategories is included as an empty array
       };
       console.log('Adding item:', payload); // Log the payload
-      const response = await fetch('https://localhost:7237/api/items', {
+      const response = await fetch('http://localhost:5079/api/Items', { // Use the correct URL
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const useItems = () => {
         itemCategories: updatedItem.itemCategories || [], // Ensure itemCategories is included
       };
       console.log('Updating item:', payload); // Log the payload
-      const response = await fetch(`https://localhost:7237/api/items/${updatedItem.itemID}`, {
+      const response = await fetch(`http://localhost:5079/api/Items/${updatedItem.itemID}`, { // Use the correct URL
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ const useItems = () => {
 
   const deleteItem = async (itemId: number) => {
     try {
-      const response = await fetch(`https://localhost:7237/api/items/${itemId}`, {
+      const response = await fetch(`http://localhost:5079/api/Items/${itemId}`, { // Use the correct URL
         method: 'DELETE',
       });
   

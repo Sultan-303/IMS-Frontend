@@ -13,7 +13,7 @@ const useStock = () => {
     setLoading(true);
     try {
       console.log('Fetching all stock from API');
-      const response = await fetch('https://localhost:7237/api/stock');
+      const response = await fetch('http://localhost:5079/api/Stock'); // Use the correct URL
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -32,7 +32,7 @@ const useStock = () => {
   const fetchItems = async () => {
     try {
       console.log('Fetching all items from API');
-      const response = await fetch('https://localhost:7237/api/items');
+      const response = await fetch('http://localhost:5079/api/Items'); // Use the correct URL
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -53,7 +53,7 @@ const useStock = () => {
   const addStock = async (newStock: Stock) => {
     try {
       console.log('Adding new stock to API:', newStock);
-      const response = await fetch('https://localhost:7237/api/stock', {
+      const response = await fetch('http://localhost:5079/api/Stock', { // Use the correct URL
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ const useStock = () => {
   const updateStock = async (updatedStock: Stock) => {
     try {
       console.log('Updating stock in API:', updatedStock);
-      const response = await fetch(`https://localhost:7237/api/stock/${updatedStock.stockID}`, {
+      const response = await fetch(`http://localhost:5079/api/Stock/${updatedStock.stockID}`, { // Use the correct URL
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -131,7 +131,7 @@ const useStock = () => {
   const deleteStock = async (stockId: number) => {
     try {
       console.log(`Deleting stock with ID: ${stockId} from API`);
-      const response = await fetch(`https://localhost:7237/api/stock/${stockId}`, {
+      const response = await fetch(`http://localhost:5079/api/Stock/${stockId}`, { // Use the correct URL
         method: 'DELETE',
       });
 

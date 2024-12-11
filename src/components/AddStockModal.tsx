@@ -18,7 +18,7 @@ const AddStockModal: React.FC<AddStockModalProps> = ({ onClose, onSave }) => {
     // Fetch items from the backend
     const fetchItems = async () => {
       try {
-        const response = await fetch('https://localhost:7237/api/items');
+        const response = await fetch('http://localhost:5079/api/Items');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
