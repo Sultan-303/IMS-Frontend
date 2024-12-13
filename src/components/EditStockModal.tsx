@@ -9,14 +9,14 @@ interface EditStockModalProps {
 }
 
 const EditStockModal: React.FC<EditStockModalProps> = ({ stock, itemName, onClose, onSave }) => {
-  const [quantityInStock, setQuantityInStock] = useState(stock.quantityInStock);
+  const [quantity, setQuantity] = useState(stock.quantity);
   const [arrivalDate, setArrivalDate] = useState(stock.arrivalDate instanceof Date ? stock.arrivalDate.toISOString().substring(0, 10) : new Date(stock.arrivalDate).toISOString().substring(0, 10));
   const [expiryDate, setExpiryDate] = useState(stock.expiryDate ? (stock.expiryDate instanceof Date ? stock.expiryDate.toISOString().substring(0, 10) : new Date(stock.expiryDate).toISOString().substring(0, 10)) : '');
 
   const handleSave = () => {
     const updatedStock: Stock = {
       ...stock,
-      quantityInStock,
+      quantity,
       arrivalDate: new Date(arrivalDate),
       expiryDate: expiryDate ? new Date(expiryDate) : undefined,
     };
@@ -33,7 +33,7 @@ const EditStockModal: React.FC<EditStockModalProps> = ({ stock, itemName, onClos
         </label>
         <label>
           Quantity:
-          <input type="number" value={quantityInStock} onChange={(e) => setQuantityInStock(Number(e.target.value))} />
+          <input type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} />
         </label>
         <label>
           Arrival Date:

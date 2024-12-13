@@ -25,7 +25,7 @@ export interface Item {
 export interface Stock {
   stockID: number;
   itemID: number;
-  quantityInStock: number;
+  quantity: number;
   arrivalDate: Date;
   expiryDate?: Date;
 }

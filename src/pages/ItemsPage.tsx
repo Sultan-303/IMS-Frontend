@@ -19,8 +19,9 @@ const ItemsPage: React.FC = () => {
     fetchItems();
   }, []);
 
-  const handleAddItem = (item: Item) => {
-    addItem(item);
+  const handleAddItem = async (item: Item) => {
+    await addItem(item);  // Wait for the item to be added
+    await fetchItems();   // Refresh the items list to get the updated IDs
     setShowAddModal(false);
   };
 
@@ -39,7 +40,7 @@ const ItemsPage: React.FC = () => {
 
   const handleForceDeleteItem = async () => {
     if (forceDeleteItemId !== null) {
-      await fetch(`https://localhost:7237/api/items/${forceDeleteItemId}/force`, {
+      await fetch(`https://localhost:5079/api/items/${forceDeleteItemId}/force`, {
         method: 'DELETE',
       });
       fetchItems();

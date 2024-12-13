@@ -4,7 +4,7 @@ import { Item } from '../types';
 
 interface AddItemModalProps {
   onClose: () => void;
-  onSave: (item: Item) => void;
+  onSave: (item: Item) => Promise<void>;
 }
 
 const AddItemModal: React.FC<AddItemModalProps> = ({ onClose, onSave }) => {

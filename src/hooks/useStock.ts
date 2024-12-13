@@ -61,7 +61,7 @@ const useStock = () => {
         body: JSON.stringify({
           stockID: 0,
           itemID: newStock.itemID,
-          quantityInStock: newStock.quantityInStock,
+          quantity: newStock.quantity,
           arrivalDate: newStock.arrivalDate.toISOString(),
           expiryDate: newStock.expiryDate ? newStock.expiryDate.toISOString() : null,
         }),
@@ -93,7 +93,7 @@ const useStock = () => {
         body: JSON.stringify({
           stockID: updatedStock.stockID,
           itemID: updatedStock.itemID,
-          quantityInStock: updatedStock.quantityInStock,
+          quantity: updatedStock.quantity,
           arrivalDate: updatedStock.arrivalDate.toISOString(),
           expiryDate: updatedStock.expiryDate ? updatedStock.expiryDate.toISOString() : null,
         }),

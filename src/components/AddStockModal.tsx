@@ -10,12 +10,11 @@ interface AddStockModalProps {
 const AddStockModal: React.FC<AddStockModalProps> = ({ onClose, onSave }) => {
   const [items, setItems] = useState<Item[]>([]);
   const [itemID, setItemID] = useState<number | ''>('');
-  const [quantityInStock, setQuantityInStock] = useState<number | ''>('');
+  const [quantity, setQuantity] = useState<string>('');
   const [arrivalDate, setArrivalDate] = useState<string>('');
   const [expiryDate, setExpiryDate] = useState<string>('');
 
   useEffect(() => {
-    // Fetch items from the backend
     const fetchItems = async () => {
       try {
         const response = await fetch('http://localhost:5079/api/Items');
@@ -33,11 +32,11 @@ const AddStockModal: React.FC<AddStockModalProps> = ({ onClose, onSave }) => {
   }, []);
 
   const handleSave = () => {
-    if (itemID && quantityInStock && arrivalDate) {
+    if (itemID && quantity && arrivalDate) {
       const newStock: Stock = {
-        stockID: 0, // This will be set by the backend
+        stockID: 0,
         itemID: Number(itemID),
-        quantityInStock: Number(quantityInStock),
+        quantity: Number(quantity), 
         arrivalDate: new Date(arrivalDate),
         expiryDate: expiryDate ? new Date(expiryDate) : undefined,
       };
@@ -64,15 +63,28 @@ const AddStockModal: React.FC<AddStockModalProps> = ({ onClose, onSave }) => {
         </label>
         <label>
           Quantity:
-          <input type="number" value={quantityInStock} onChange={(e) => setQuantityInStock(Number(e.target.value))} />
+          <input 
+            type="number" 
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            min="0"
+          />
         </label>
         <label>
           Arrival Date:
-          <input type="date" value={arrivalDate} onChange={(e) => setArrivalDate(e.target.value)} />
+          <input 
+            type="date" 
+            value={arrivalDate} 
+            onChange={(e) => setArrivalDate(e.target.value)} 
+          />
         </label>
         <label>
           Expiry Date:
-          <input type="date" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} />
+          <input 
+            type="date" 
+            value={expiryDate} 
+            onChange={(e) => setExpiryDate(e.target.value)} 
+          />
         </label>
         <button onClick={handleSave}>Save</button>
         <button onClick={onClose}>Cancel</button>

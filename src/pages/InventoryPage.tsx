@@ -56,7 +56,7 @@ const InventoryPage: React.FC = () => {
             {allStock.map((stock) => (
               <li key={stock.stockID} className="stock-box">
                 <span>{getItemName(stock.itemID)}</span>
-                <span>{stock.quantityInStock}</span>
+                <span>{stock.quantity}</span>
                 <span>{new Date(stock.arrivalDate).toLocaleDateString()}</span>
                 <span>{stock.expiryDate ? new Date(stock.expiryDate).toLocaleDateString() : 'N/A'}</span>
                 <button onClick={() => { setCurrentStock({ ...stock, arrivalDate: new Date(stock.arrivalDate), expiryDate: stock.expiryDate ? new Date(stock.expiryDate) : undefined }); setCurrentItemName(getItemName(stock.itemID)); setShowEditModal(true); }}>Edit</button>

@@ -59,7 +59,7 @@ describe('InventoryPage', () => {
   test('displays stock list when there is stock', () => {
     mockUseStock.mockReturnValue({
       allStock: [
-        { stockID: 1, itemID: 1, quantityInStock: 10, arrivalDate: new Date('2023-01-01'), expiryDate: new Date('2023-12-31') },
+        { stockID: 1, itemID: 1, quantity : 10, arrivalDate: new Date('2023-01-01'), expiryDate: new Date('2023-12-31') },
       ],
       allItems: [
         { itemID: 1, itemName: 'Item 1', unit: 'pcs', price: 10.0 },
@@ -89,7 +89,7 @@ describe('InventoryPage', () => {
     const deleteStockMock = jest.fn();
     mockUseStock.mockReturnValue({
       allStock: [
-        { stockID: 1, itemID: 1, quantityInStock: 10, arrivalDate: new Date('2023-01-01'), expiryDate: new Date('2023-12-31') },
+        { stockID: 1, itemID: 1, quantity : 10, arrivalDate: new Date('2023-01-01'), expiryDate: new Date('2023-12-31') },
       ],
       allItems: [
         { itemID: 1, itemName: 'Item 1', unit: 'pcs', price: 10.0 },
