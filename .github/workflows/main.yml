@@ -39,7 +39,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   cypress-run:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
