@@ -1,22 +1,21 @@
 describe('Add Item', () => {
-  const expectedItem = {
-    itemID: 1,
-    itemName: 'New Item',
-    unit: 'kg',
-    price: 5.00
-  };
-
   beforeEach(() => {
-    // Initial GET returns our expected item
+    // Mock GET items response
     cy.intercept('GET', 'http://localhost:5079/api/Items', {
       statusCode: 200,
-      body: [expectedItem]
+      body: []
     }).as('getItems');
 
-    // POST just returns success
-    cy.intercept('POST', 'http://localhost:5079/api/Items', {
-      statusCode: 201,
-      body: expectedItem
+    // Mock POST new item response
+    cy.intercept('POST', 'http://localhost:5079/api/Items', (req) => {
+      const newItem = {
+        ...req.body,
+        itemID: 1
+      };
+      return {
+        statusCode: 201,
+        body: newItem
+      };
     }).as('addItem');
 
     cy.visit('http://localhost:3000/items');
@@ -24,8 +23,10 @@ describe('Add Item', () => {
   });
   
   it('should add a new item', () => {
+    // Click the "Add Item" button
     cy.contains('Add Item').click();
   
+    // Fill out the form
     cy.contains('label', 'Name:').parent().within(() => {
       cy.get('input').eq(0).type('New Item');
     });
