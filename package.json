@@ -2,7 +2,7 @@
   "name": "ims-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://<your-github-username>.github.io/<repository-name>",
+  "homepage": "https://sultan-303.github.io/IMS-Frontend",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@testing-library/user-event": "^13.5.0",
