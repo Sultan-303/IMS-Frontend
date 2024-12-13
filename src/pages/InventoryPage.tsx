@@ -15,7 +15,7 @@ const InventoryPage: React.FC = () => {
 
   useEffect(() => {
     fetchStock();
-  }, []);
+  }, [fetchStock]); // Add fetchStock as dependency
 
   const handleAddStock = (stock: Stock) => {
     addStock(stock);

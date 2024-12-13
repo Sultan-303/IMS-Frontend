@@ -17,7 +17,7 @@ const ItemsPage: React.FC = () => {
 
   useEffect(() => {
     fetchItems();
-  }, []);
+  }, [fetchItems]); // Add fetchItems as dependency
 
   const handleAddItem = async (item: Item) => {
     await addItem(item);  // Wait for the item to be added
