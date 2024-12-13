@@ -1,4 +1,4 @@
-// src/pages/ItemsPage.tsx
+/* // src/pages/ItemsPage.tsx
 import React, { useState, useEffect } from 'react';
 import useItems from '../hooks/useItems';
 import { Item } from '../types';
@@ -96,4 +96,4 @@ const ItemsPage: React.FC = () => {
   );
 };
 
-export default ItemsPage;
+export default ItemsPage; */
