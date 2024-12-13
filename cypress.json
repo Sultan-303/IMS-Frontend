@@ -1,6 +1,7 @@
 {
-    "baseUrl": "http://localhost:3000",
-    "integrationFolder": "cypress/integration",
-    "supportFile": "cypress/support/index.js",
-    "video": false
-  }
+  "baseUrl": "http://localhost:3000",
+  "integrationFolder": "cypress/integration",
+  "supportFile": "cypress/support/index.js",
+  "video": false,
+  "projectId": "ao38xq"
+}

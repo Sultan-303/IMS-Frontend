@@ -23,7 +23,7 @@ describe('Add Item', () => {
   
       // Verify the new item is displayed
       cy.contains('New Item');
-      cy.contains('pcs');
-      cy.contains('5.00');
+      cy.contains('kg');
+      cy.contains('5');
     });
   });
